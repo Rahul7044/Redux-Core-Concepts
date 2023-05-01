@@ -1,39 +1,30 @@
-import { useSelector, useDispatch } from "react-redux";
-import classes from "./Counter.module.css";
-import { counterAction } from "../store";
+import { useDispatch } from "react-redux";
+import classes from "./Auth.module.css";
+import { authAction } from "../store/index";
 
-const Counter = () => {
+const Auth = () => {
   const dispatch = useDispatch();
-  const counter = useSelector((state) => state.counter);
-  const show = useSelector((state) => state.showCounter);
+  const loginHandler = (e) => {
+    e.preventDefault();
 
-  const incrementHandler = () => {
-    dispatch(counterAction.increment());
+    dispatch(authAction.login());
   };
-  const decrementHandler = () => {
-    dispatch(counterAction.decrement());
-  };
-  const increaseHandler = () => {
-    dispatch(counterAction.increase(2)); //{type: Unique_Id, payload: 2}
-  };
-
-  const toggleCounterHandler = () => {
-    dispatch(counterAction.toggleCounter());
-  };
-
   return (
-    <main className={classes.counter}>
-      <h1>Redux Counter</h1>
-      {show && <div className={classes.value}>{counter}</div>}
-
-      <div>
-        <button onClick={incrementHandler}>Increment</button>
-        <button onClick={increaseHandler}>IncreaseBy2</button>
-        <button onClick={decrementHandler}>Decrement</button>
-      </div>
-
-      <button onClick={toggleCounterHandler}>Toggle Counter</button>
+    <main className={classes.auth}>
+      <section>
+        <form onSubmit={loginHandler}>
+          <div className={classes.control}>
+            <label htmlFor="email">Email</label>
+            <input type="email" id="email" />
+          </div>
+          <div className={classes.control}>
+            <label htmlFor="password">Password</label>
+            <input type="password" id="password" />
+          </div>
+          <button>Login</button>
+        </form>
+      </section>
     </main>
   );
 };
-export default Counter;
+export default Auth;
